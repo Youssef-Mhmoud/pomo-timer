@@ -1,25 +1,33 @@
+const DEFAULT_TIME = 1500; // seconds
+let timeLeft = DEFAULT_TIME;
+let interval;
+
 // Variables
-const startBtn = document.querySelector(".start");
-const pauseBtn = document.querySelector(".pause");
-const continueBtn = document.querySelector(".continue");
-const resetBtn = document.querySelector(".reset");
-const navBtns = document.querySelectorAll(".time-box nav button");
+const buttons = {
+  start: document.querySelector(".start"),
+  pause: document.querySelector(".pause"),
+  reset: document.querySelector(".reset"),
+  continue: document.querySelector(".continue"),
+  navBtns: document.querySelectorAll(".time-box nav button")
+};
+
 const timeEl = document.querySelector(".time");
 const boxTimeEl = document.querySelector(".time-box");
 const timeControlEl = document.querySelector(".time-control");
 
 // Add active class to button
-navBtns.forEach((ele) => {
+buttons.navBtns.forEach((ele) => {
   ele.addEventListener("click", (e) => {
-    navBtns.forEach((btn) => btn.classList.remove("active-nav"));
+    buttons.navBtns.forEach((btn) => btn.classList.remove("active-nav"));
     e.target.classList.add("active-nav");
   });
 });
 
-// Time functions logic
-let interval;
-let timeLeft = 1500; // seconds
+// Utility functions
+const hide = (el) => (el.style.display = "none");
+const show = (el, type = "block") => (el.style.display = type);
 
+// Time functions logic
 function updateTimer() {
   let minutes = Math.floor(timeLeft / 60);
   let seconds = timeLeft % 60;
@@ -40,32 +48,31 @@ function startTimer(e) {
     }
   }, 1000);
 
-    e.target.style.display = "none";
-    pauseBtn.style.display = 'block'
-    timeControlEl.style.display = "flex";
-
+  hide(e.target);
+  show(buttons.pause);
+  show(timeControlEl, "flex");
 }
 
 function pauseTimer(e) {
   clearInterval(interval);
-  continueBtn.style.display = "block";
 
-  e.target.style.display = "none";
+  show(buttons.continue);
+  hide(e.target);
 }
 
 function resetTimer(e) {
-  clearInterval(interval)
-  timeLeft = 1500
-  updateTimer()
+  clearInterval(interval);
+  timeLeft = 1500;
+  updateTimer();
 
-  timeControlEl.style.display = 'none'
-  startBtn.style.display = 'block'
+  hide(timeControlEl);
+  show(buttons.start);
 }
 
-startBtn.addEventListener("click", startTimer);
+buttons.start.addEventListener("click", startTimer);
 
-continueBtn.addEventListener("click", startTimer);
+buttons.continue.addEventListener("click", startTimer);
 
-pauseBtn.addEventListener("click", pauseTimer);
+buttons.pause.addEventListener("click", pauseTimer);
 
-resetBtn.addEventListener("click", resetTimer);
+buttons.reset.addEventListener("click", resetTimer);

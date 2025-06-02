@@ -1,7 +1,138 @@
 /* Variables */
+:root {
+  --raduis: 0.25rem;
+  --button-bg: rgb(224, 50, 50);
+}
 /* Global rules */
+html {
+  font-size: 16px;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+body {
+  background: #d82f2f;
+  color: #fff;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+button {
+  display: block;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+
+  color: #fff;
+}
+
+/* Container */
+.container {
+  padding: 0 1.25rem;
+  margin: 0 auto;
+
+  width: 30rem;
+}
+
+@media (width >= 48rem) {
+  .container {
+    width: 36rem;
+  }
+}
+
+@media (width >= 62rem) {
+  .container {
+    width: 54rem;
+  }
+}
+
+@media (width >= 75rem) {
+  .container {
+    width: 60rem;
+  }
+}
+
+/* Header */
+header {
+  padding: 1.25rem;
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #0000006b;
+}
+
+.time-box {
+  background: rgba(52, 51, 51, 0.5);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(7.8px);
+  -webkit-backdrop-filter: blur(7.8px);
+  margin: 1.25rem auto;
+
+  border-radius: var(--raduis);
+  padding: 1rem;
+}
+
+.time-box nav {
+  display: flex;
+  justify-content: space-between;
+
+  width: 16rem;
+  margin: 0 auto;
+}
+
+.time-box nav button {
+  background-color: var(--button-bg);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--raduis);
+  text-transform: uppercase;
+
+  font-weight: 600;
+  transition: all 0.3s;
+
+  opacity: 0.7;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.time-box nav button.active-nav {
+  opacity: 1;
+}
+
+.time-box p {
+  background-color: var(--button-bg);
+  width: fit-content;
+  padding: 0.8rem;
+  margin: 2rem auto;
+
+  border-radius: var(--raduis);
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+}
+
+.time-box .start-btn {
+  background-color: var(--button-bg);
+  padding: 0.75rem 2rem;
+  border-radius: var(--raduis);
+
+  transition: all 0.3s;
+  opacity: 0.7;
+  margin: 0.75rem auto;
+
+  &:hover {
+    opacity: 1;
+  }
 }

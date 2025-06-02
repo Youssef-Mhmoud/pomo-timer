@@ -3,29 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.css" />
     <title>Pomo Timer</title>
   </head>
   <body>
     <header>
-      <a href="#"> Pomo Timer </a>
-      <p>settings</p>
+      <div class="container">
+        <a href="#"> Pomo Timer </a>
+        <button>settings</button>
+      </div>
     </header>
 
-    <div class="time-box">
-      <nav>
-        <button>time</button>
-        <button>rest</button>
-        <button>full rest</button>
-      </nav>
-      <button>Start</button>
+    <div class="container">
+      <div class="time-box">
+        <nav>
+          <button class="active-nav">time</button>
+          <button>rest</button>
+          <button>full rest</button>
+        </nav>
+        <p>50:00</p>
+        <button class="start-btn">Start</button>
+      </div>
     </div>
 
-    <div class="task-box">
-      <div>
-        <p>task name 1</p>
-        <p>pomo count</p>
+    <div class="container">
+      <div class="task-box">
+        <div>
+          <p>task name 1</p>
+          <p>pomo count</p>
+        </div>
+        <button>New Task</button>
       </div>
-      <button>New Task</button>
     </div>
   </body>
 </html>

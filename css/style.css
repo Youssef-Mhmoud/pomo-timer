@@ -1,6 +1,6 @@
 /* Variables */
 :root {
-  --raduis: 0.25rem;
+  --radius: 0.25rem;
   --button-bg: rgb(224, 50, 50);
 }
 /* Global rules */
@@ -31,6 +31,20 @@ button {
   cursor: pointer;
 
   color: #fff;
+}
+
+.btn {
+  background-color: var(--button-bg);
+  padding: 0.75rem 2rem;
+  border-radius: var(--radius);
+
+  transition: all 0.3s;
+  opacity: 0.7;
+  margin: 0.75rem auto;
+
+  &:hover {
+    opacity: 1;
+  }
 }
 
 /* Container */
@@ -70,7 +84,7 @@ header .container {
   align-items: center;
 
   padding-bottom: 1rem;
-  border-bottom: 1px solid #0000006b;
+  border-bottom: 1px solid #f2e1e193;
 }
 
 .time-box {
@@ -81,22 +95,22 @@ header .container {
   -webkit-backdrop-filter: blur(7.8px);
   margin: 1.25rem auto;
 
-  border-radius: var(--raduis);
+  border-radius: var(--radius);
   padding: 1rem;
 }
 
 .time-box nav {
   display: flex;
-  justify-content: space-between;
+  gap: 1rem;
+  justify-content: center;
 
-  width: 16rem;
   margin: 0 auto;
 }
 
 .time-box nav button {
   background-color: var(--button-bg);
   padding: 0.5rem 0.75rem;
-  border-radius: var(--raduis);
+  border-radius: var(--radius);
   text-transform: uppercase;
 
   font-weight: 600;
@@ -112,27 +126,22 @@ header .container {
   opacity: 1;
 }
 
-.time-box p {
-  background-color: var(--button-bg);
+.time-box .time {
+  /* background-color: var(--button-bg); */
   width: fit-content;
   padding: 0.8rem;
   margin: 2rem auto;
+  border: 2px solid var(--button-bg);
 
-  border-radius: var(--raduis);
+  border-radius: var(--radius);
   font-weight: 600;
   letter-spacing: 0.1rem;
 }
 
-.time-box .start-btn {
-  background-color: var(--button-bg);
-  padding: 0.75rem 2rem;
-  border-radius: var(--raduis);
+.time-box .time-control {
+  display: none;
+}
 
-  transition: all 0.3s;
-  opacity: 0.7;
-  margin: 0.75rem auto;
-
-  &:hover {
-    opacity: 1;
-  }
+.time-box .time-control .continue {
+  display: none;
 }

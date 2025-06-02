@@ -1,4 +1,4 @@
-const DEFAULT_TIME = 1500; // seconds
+const DEFAULT_TIME = 10; // seconds
 let timeLeft = DEFAULT_TIME;
 let interval;
 
@@ -8,8 +8,10 @@ const buttons = {
   pause: document.querySelector(".pause"),
   reset: document.querySelector(".reset"),
   continue: document.querySelector(".continue"),
-  navBtns: document.querySelectorAll(".time-box nav button")
+  navBtns: document.querySelectorAll(".time-box nav button"),
 };
+
+const alarmSound = document.getElementById("alarm-sound");
 
 const timeEl = document.querySelector(".time");
 const boxTimeEl = document.querySelector(".time-box");
@@ -35,16 +37,28 @@ function updateTimer() {
     .toString()
     .padStart(2, "0")}`;
 
+  timeEl.classList.remove("fade-animation");
+  void timeEl.offsetWidth;
+  timeEl.classList.add("fade-animation");
+
   timeEl.innerHTML = formattedTime;
 }
 
 function startTimer(e) {
+  if (interval) return;
+
   interval = setInterval(() => {
     timeLeft--;
     updateTimer();
 
     if (timeLeft === 0) {
       clearInterval(interval);
+      interval = null;
+
+      alarmSound.currentTime = 0;
+      alarmSound.play();
+
+      hide(buttons.pause);
     }
   }, 1000);
 
@@ -55,6 +69,7 @@ function startTimer(e) {
 
 function pauseTimer(e) {
   clearInterval(interval);
+  interval = null;
 
   show(buttons.continue);
   hide(e.target);
@@ -62,12 +77,18 @@ function pauseTimer(e) {
 
 function resetTimer(e) {
   clearInterval(interval);
-  timeLeft = 1500;
+
+  timeLeft = DEFAULT_TIME;
+  interval = null;
+
   updateTimer();
 
   hide(timeControlEl);
+  hide(buttons.continue);
   show(buttons.start);
 }
+
+updateTimer();
 
 buttons.start.addEventListener("click", startTimer);
 

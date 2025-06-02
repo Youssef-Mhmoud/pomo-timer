@@ -1,4 +1,4 @@
-const DEFAULT_TIME = 10; // seconds
+const DEFAULT_TIME = 1500; // seconds
 let timeLeft = DEFAULT_TIME;
 let interval;
 
@@ -17,29 +17,17 @@ const timeEl = document.querySelector(".time");
 const boxTimeEl = document.querySelector(".time-box");
 const timeControlEl = document.querySelector(".time-control");
 
-// Add active class to button
-buttons.navBtns.forEach((ele) => {
-  ele.addEventListener("click", (e) => {
-    buttons.navBtns.forEach((btn) => btn.classList.remove("active-nav"));
-    e.target.classList.add("active-nav");
-  });
-});
-
 // Utility functions
 const hide = (el) => (el.style.display = "none");
 const show = (el, type = "block") => (el.style.display = type);
 
 // Time functions logic
-function updateTimer() {
-  let minutes = Math.floor(timeLeft / 60);
-  let seconds = timeLeft % 60;
+function updateTimer(time) {
+  let minutes = Math.floor(time / 60);
+  let seconds = time % 60;
   let formattedTime = `${minutes.toString().padStart(2, "0")}:${seconds
     .toString()
     .padStart(2, "0")}`;
-
-  timeEl.classList.remove("fade-animation");
-  void timeEl.offsetWidth;
-  timeEl.classList.add("fade-animation");
 
   timeEl.innerHTML = formattedTime;
 }
@@ -49,7 +37,7 @@ function startTimer(e) {
 
   interval = setInterval(() => {
     timeLeft--;
-    updateTimer();
+    updateTimer(timeLeft);
 
     if (timeLeft === 0) {
       clearInterval(interval);
@@ -75,20 +63,25 @@ function pauseTimer(e) {
   hide(e.target);
 }
 
-function resetTimer(e) {
+function stopTimerUI() {
   clearInterval(interval);
-
-  timeLeft = DEFAULT_TIME;
   interval = null;
-
-  updateTimer();
 
   hide(timeControlEl);
   hide(buttons.continue);
   show(buttons.start);
 }
 
-updateTimer();
+function resetTimer(e) {
+  timeLeft = DEFAULT_TIME;
+
+  stopTimerUI();
+  updateTimer(timeLeft);
+}
+
+updateTimer(timeLeft);
+
+// Events
 
 buttons.start.addEventListener("click", startTimer);
 
@@ -97,3 +90,21 @@ buttons.continue.addEventListener("click", startTimer);
 buttons.pause.addEventListener("click", pauseTimer);
 
 buttons.reset.addEventListener("click", resetTimer);
+
+// Add active class to button
+buttons.navBtns.forEach((ele) => {
+  ele.addEventListener("click", (e) => {
+    buttons.navBtns.forEach((btn) => btn.classList.remove("active-nav"));
+    e.target.classList.add("active-nav");
+
+    // Change time
+    if (e.target.classList.contains("short-break-btn")) timeLeft = 300;
+
+    if (e.target.classList.contains("long-break-btn")) timeLeft = 900;
+
+    if (e.target.classList.contains("focus-btn")) timeLeft = DEFAULT_TIME;
+
+    updateTimer(timeLeft);
+    stopTimerUI();
+  });
+});

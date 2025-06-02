@@ -17,6 +17,8 @@ html {
 body {
   background: #d82f2f;
   color: #fff;
+
+  transition: all .3s;
 }
 
 a {

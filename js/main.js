@@ -43,8 +43,10 @@ function startTimer(e) {
       clearInterval(interval);
       interval = null;
 
-      alarmSound.currentTime = 0;
-      alarmSound.play();
+      if (alarmSound) {
+        alarmSound.currentTime = 0;
+        alarmSound.play();
+      }
 
       hide(buttons.pause);
     }
@@ -72,7 +74,7 @@ function stopTimerUI() {
   show(buttons.start);
 }
 
-function resetTimer(e) {
+function resetTimer() {
   timeLeft = DEFAULT_TIME;
 
   stopTimerUI();
@@ -98,11 +100,20 @@ buttons.navBtns.forEach((ele) => {
     e.target.classList.add("active-nav");
 
     // Change time
-    if (e.target.classList.contains("short-break-btn")) timeLeft = 300;
+    if (e.target.classList.contains("short-break-btn")) {
+      timeLeft = 300;
+      document.body.style.backgroundColor = "#4CAF50";
+    }
 
-    if (e.target.classList.contains("long-break-btn")) timeLeft = 900;
-
-    if (e.target.classList.contains("focus-btn")) timeLeft = DEFAULT_TIME;
+    if (e.target.classList.contains("long-break-btn")) {
+      timeLeft = 900;
+      document.body.style.backgroundColor = "#03a9f4";
+    }
+    
+    if (e.target.classList.contains("focus-btn")) {
+      timeLeft = DEFAULT_TIME;
+      document.body.style.backgroundColor = "#d82f2f";
+    }
 
     updateTimer(timeLeft);
     stopTimerUI();
